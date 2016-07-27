@@ -1,0 +1,9 @@
+shout:
+
+16 bytes - same
+2 bytes - different
+46 bytes - same
+1 byte - different
+33 byte- same
+5 byte - "hello"
+ZEROS
