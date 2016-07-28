@@ -7,3 +7,34 @@ shout:
 33 byte- same
 5 byte - "hello"
 ZEROS
+
+yell:
+16 bytes - same
+2 bytes - different (sometimes?)
+46 bytes - same
+1 byte different
+33 byte - same
+5 byte - "hello"
+ZEROS
+
+say:
+16 bytes - same
+2 bytes - different
+46 bytes - same
+1 byte - different
+33 byte - same
+5 byte - "hello"
+ZEROS
+
+all three:
+16 bytes -same
+3 bytes - different
+45 bytes - same
+1 byte - different
+15 byte - same
+11 byte - different (same for yell and say)
+1 same
+5 different (yell and say are the same for 4 bytes)
+1 same
+5 byte - "hello"
+ZEROS
