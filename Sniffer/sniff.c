@@ -8,7 +8,8 @@ compile with gcc sniff.c -lpcap
 
 int main(int argc, char *argv[]) {
 
-    char *dev = "eth0";
+    //char *dev = "eth0";
+    char *dev = "wlan0";
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t *handle;
     const u_char *packet;
