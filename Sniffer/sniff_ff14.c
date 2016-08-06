@@ -371,10 +371,10 @@ return;
 
 int
 should_print(int pay_size, char * srcip, char * dstip) {
-    int src_match = strcmp(srcip, "192.168.1.7");
-    int dst_match = strcmp(dstip, "199.91.189.33");
+    int src_match = strcmp(srcip, "199.91.189.33");
+    int dst_match = strcmp(dstip, "192.168.1.7");
 
-    printf("EVAL\n%s,\n%s\n\n\n", srcip, dstip);
+    //printf("EVAL\n%s,\n%s\n\n\n", srcip, dstip);
 
     if (pay_size < 1) 
         return 0;
@@ -462,18 +462,20 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
         //char source_ip[INET_ADDRSTRLEN];
         //char dest_ip[INET_ADDRSTRLEN];
 	char * source_ip;
-        char * new_source_ip;
+        char * new_source_ip = malloc(1024);
         //source_ip = inet_ntop(AF_INET, ip->ip_src, source_ip, INET_ADDRSTRLEN);
 	char * dest_ip; 
+        char * new_dest_ip = malloc(1024);
         //dest_ip = inet_ntop(AF_INET, ip->ip_dst, dest_ip, INET_ADDRSTRLEN);
         
-	printf("SOURCE: %s\n", inet_ntoa(ip->ip_src));
-	printf("DEST: %s\n", inet_ntoa(ip->ip_dst));
+	//printf("SOURCE: %s\n", inet_ntoa(ip->ip_src));
         source_ip = inet_ntoa(ip->ip_src);
-        printf("%d\n", strlen(source_ip)+1);
-	memmove(new_source_ip, source_ip, strlen(source_ip)+1);
-	printf("SOURC: %s\n", new_source_ip);
-	printf("DEST: %s\n", inet_ntoa(ip->ip_dst));
+        strcpy(new_source_ip, source_ip);
+	//printf("DEST: %s\n", inet_ntoa(ip->ip_dst));
+        dest_ip = inet_ntoa(ip->ip_dst);
+        strcpy(new_dest_ip, dest_ip);
+	//printf("SOURC: %s\n", new_source_ip);
+	//printf("DEST: %s\n", new_dest_ip);
         /* determine protocol */	
 	switch(ip->ip_p) {
 		case IPPROTO_TCP:
@@ -515,16 +517,15 @@ got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 	 * Print payload data; it might be binary, so don't just
 	 * treat it as a string.
 	 */
-        printf("SOURCE_IP: %s\n", source_ip);
-        printf("DEST_IP: %s\n\n\n", dest_ip);
-	if (should_print(size_payload, source_ip, dest_ip) == 1) {
+	if (should_print(size_payload, new_source_ip, dest_ip) == 1) {
 	        printf("\nPacket number %d:\n", count);
 	        printf("       From: %s\n", inet_ntoa(ip->ip_src));
 	        printf("         To: %s\n", inet_ntoa(ip->ip_dst));
 		printf("   Payload (%d bytes):\n", size_payload);
 		print_payload(payload, size_payload);
 	}
-
+        //free(source_ip);
+        //free(dest_ip);
 return;
 }
 

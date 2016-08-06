@@ -1,0 +1,20 @@
+Programme de test contenant des vulnérabilités types.
+
+== Compilation ==
+
+$ make
+
+
+== Exécution ==
+
+Sans option :
+
+  $ ./main
+
+Avec des arguments :
+
+  $ ./main arg1 arg2 ... arg3
+
+En mode serveur :
+
+  $ ./main -l
